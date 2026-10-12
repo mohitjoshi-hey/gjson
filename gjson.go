@@ -2822,11 +2822,11 @@ func parseUint(s string) (uint64, bool) {
 		if s[i] < '0' || s[i] > '9' {
 			return 0, false
 		}
-		next := n*10 + uint64(s[i]-'0')
-		if next < n {
+		digit := uint64(s[i] - '0')
+		if n > (math.MaxUint64-digit)/10 {
 			goto overflow
 		}
-		n = next
+		n = n*10 + digit
 	}
 	return n, true
 overflow:
